@@ -1,2 +1,1 @@
-# Premium Game Rating Dashboard
-Run: streamlit run app.py
+Generated from uploaded storytelling and ML notebooks.
