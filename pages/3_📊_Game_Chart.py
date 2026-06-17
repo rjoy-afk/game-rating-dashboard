@@ -15,11 +15,10 @@ from utils.chart_style import (
 
 st.set_page_config(page_title="Game Chart", page_icon="📊", layout="wide")
 
-# 1. Render Identitas di Sidebar
-render_sidebar()
-
-# 2. Tambahkan Dropdown Menu di Sidebar
-st.sidebar.markdown("---")
+# ==========================================
+# KONFIGURASI SIDEBAR
+# ==========================================
+# 1. Tempatkan Dropdown terlebih dahulu agar muncul tepat di bawah menu page bawaan
 st.sidebar.markdown("### 🗂️ Navigasi Sub Menu")
 menu_options = [
     "a. Top 10 Game dengan Rating Tertinggi",
@@ -34,6 +33,15 @@ menu_options = [
 ]
 selected_menu = st.sidebar.selectbox("Pilih Chart:", menu_options)
 
+st.sidebar.markdown("---") # Garis pemisah
+
+# 2. Render Profil di bawah Dropdown
+render_sidebar()
+
+
+# ==========================================
+# LOGIKA UTAMA HALAMAN
+# ==========================================
 # Load data & Set Theme Matplotlib
 df_clean = load_clean_data()
 setup_theme()
@@ -42,10 +50,7 @@ st.title("📊 Game Chart & Analysis")
 st.markdown("Gunakan **dropdown di sidebar sebelah kiri** untuk menavigasi antar cerita data (Story) dan Kesimpulan.")
 st.markdown("---")
 
-# ==========================================
-# LOGIKA ROUTING BERDASARKAN DROPDOWN
-# ==========================================
-
+# Routing Berdasarkan Dropdown
 if selected_menu == "a. Top 10 Game dengan Rating Tertinggi":
     st.subheader("Story 1: Top 10 Game dengan Rating Tertinggi")
     st.write("> *Game apa yang dinilai paling tinggi oleh para pemain?*")
