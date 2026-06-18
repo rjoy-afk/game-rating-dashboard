@@ -4,7 +4,6 @@ import os
 def render_sidebar():
     st.sidebar.markdown("### 🎓 Profil Mahasiswa")
     
-    # Membungkus profil dalam elemen div HTML agar terlihat seperti 'Card'
     profil_html = """
     <div style='background-color: #161B22; padding: 15px; border-radius: 10px; border: 1px solid #30363D; margin-bottom: 20px;'>
         <div style='margin-bottom: 10px;'>
@@ -24,29 +23,32 @@ def render_sidebar():
     </div>
     """
     st.sidebar.markdown(profil_html, unsafe_allow_html=True)
-    
-    # Memberikan jarak kosong (spacer) agar logo terdorong ke bagian bawah
     st.sidebar.markdown("<br>" * 3, unsafe_allow_html=True)
     
     # ==========================================
-    # BAGIAN PENAMBAHAN 2 GAMBAR / LOGO
+    # PERBAIKAN PATH GAMBAR (ABSOLUTE PATH)
     # ==========================================
-    logo1_path = "assets/logo1.png"  # Ganti dengan nama file gambar pertama
-    logo2_path = "assets/logo2.png"  # Ganti dengan nama file gambar kedua
+    # 1. Ambil path absolut dari folder tempat file helpers.py ini berada (folder utils)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
     
-    # Membagi sidebar menjadi 2 kolom dengan lebar seimbang
+    # 2. Mundur satu level ke root folder, lalu masuk ke folder assets
+    root_dir = os.path.dirname(current_dir)
+    
+    # 3. Rangkai path file secara absolut sesuai nama file di explorer Anda
+    logo1_path = os.path.join(root_dir, "assets", "logo_uin.png")
+    logo2_path = os.path.join(root_dir, "assets", "logo_mti.png")
+    
+    # Tampilkan ke dalam 2 kolom
     col_img1, col_img2 = st.sidebar.columns(2)
     
-    # Menampilkan gambar pertama di kolom kiri
     with col_img1:
         if os.path.exists(logo1_path):
             st.image(logo1_path, use_container_width=True)
         else:
-            st.markdown("<p style='font-size: 10px; color: gray; text-align: center;'>[logo1.png]</p>", unsafe_allow_html=True)
+            st.error("Gagal load logo_uin.png")
             
-    # Menampilkan gambar kedua di kolom kanan
     with col_img2:
         if os.path.exists(logo2_path):
             st.image(logo2_path, use_container_width=True)
         else:
-            st.markdown("<p style='font-size: 10px; color: gray; text-align: center;'>[logo2.png]</p>", unsafe_allow_html=True)
+            st.error("Gagal load logo_mti.png")
