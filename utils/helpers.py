@@ -28,25 +28,25 @@ def render_sidebar():
     # ==========================================
     # KODE PELACAK ISI FOLDER (DEBUGGING)
     # ==========================================
-    assets_dir = "assets"
+    Assets_dir = "Assets"
     
-    if os.path.exists(assets_dir):
+    if os.path.exists(Assets_dir):
         # Membaca file apa saja yang benar-benar ada di server
-        files_in_server = os.listdir(assets_dir)
+        files_in_server = os.listdir(Assets_dir)
         st.sidebar.warning(f"File yang terbaca oleh server: {files_in_server}")
         
         # Mencoba load gambar berdasarkan nama persis yang Anda sebutkan
         col_img1, col_img2 = st.sidebar.columns(2)
         with col_img1:
             try:
-                st.image(f"assets/logo_uin.png", use_container_width=True)
+                st.image(f"Assets/logo_uin.png", use_container_width=True)
             except Exception:
                 st.error("logo_uin.png gagal")
         with col_img2:
             try:
-                st.image(f"assets/logo_mti.png", use_container_width=True)
+                st.image(f"Assets/logo_mti.png", use_container_width=True)
             except Exception:
                 st.error("logo_mti.png gagal")
                 
     else:
-        st.sidebar.error("Folder 'assets' sama sekali tidak ditemukan oleh server Streamlit.")
+        st.sidebar.error("Folder 'Assets' sama sekali tidak ditemukan oleh server Streamlit.")
