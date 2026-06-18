@@ -38,6 +38,14 @@ def render_sidebar():
     logo1_path = os.path.join(root_dir, "assets", "logo_uin.png")
     logo2_path = os.path.join(root_dir, "assets", "logo_mti.png")
     
+    # --- KODE DEBUG SEMENTARA ---
+    assets_dir = os.path.join(root_dir, "assets")
+    if os.path.exists(assets_dir):
+        st.sidebar.info(f"Isi folder assets: {os.listdir(assets_dir)}")
+    else:
+        st.sidebar.error("Folder assets sama sekali tidak terdeteksi oleh server.")
+    # ----------------------------
+    
     # Tampilkan ke dalam 2 kolom
     col_img1, col_img2 = st.sidebar.columns(2)
     
