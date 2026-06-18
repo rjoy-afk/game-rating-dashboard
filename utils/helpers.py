@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 
 def render_sidebar():
     st.sidebar.markdown("### 🎓 Profil Mahasiswa")
@@ -25,28 +24,17 @@ def render_sidebar():
     st.sidebar.markdown(profil_html, unsafe_allow_html=True)
     st.sidebar.markdown("<br>" * 3, unsafe_allow_html=True)
     
-    # ==========================================
-    # KODE PELACAK ISI FOLDER (DEBUGGING)
-    # ==========================================
-    Assets_dir = "Assets"
+    # Menampilkan Logo
+    col_img1, col_img2 = st.sidebar.columns(2)
     
-    if os.path.exists(Assets_dir):
-        # Membaca file apa saja yang benar-benar ada di server
-        files_in_server = os.listdir(Assets_dir)
-        st.sidebar.warning(f"File yang terbaca oleh server: {files_in_server}")
-        
-        # Mencoba load gambar berdasarkan nama persis yang Anda sebutkan
-        col_img1, col_img2 = st.sidebar.columns(2)
-        with col_img1:
-            try:
-                st.image(f"Assets/logo_uin.png", use_container_width=True)
-            except Exception:
-                st.error("logo_uin.png gagal")
-        with col_img2:
-            try:
-                st.image(f"Assets/logo_mti.png", use_container_width=True)
-            except Exception:
-                st.error("logo_mti.png gagal")
-                
-    else:
-        st.sidebar.error("Folder 'Assets' sama sekali tidak ditemukan oleh server Streamlit.")
+    with col_img1:
+        try:
+            st.image("Assets/logo_uin.png", use_container_width=True)
+        except Exception:
+            pass # Menyembunyikan pesan error jika sewaktu-waktu gagal load
+            
+    with col_img2:
+        try:
+            st.image("Assets/logo_mti.png", use_container_width=True)
+        except Exception:
+            pass
