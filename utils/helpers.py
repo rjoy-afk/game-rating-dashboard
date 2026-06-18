@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 
 def render_sidebar():
     st.sidebar.markdown("### 🎓 Profil Mahasiswa")
@@ -26,37 +25,18 @@ def render_sidebar():
     st.sidebar.markdown("<br>" * 3, unsafe_allow_html=True)
     
     # ==========================================
-    # PERBAIKAN PATH GAMBAR (ABSOLUTE PATH)
+    # PATH RELATIF SEDERHANA
     # ==========================================
-    # 1. Ambil path absolut dari folder tempat file helpers.py ini berada (folder utils)
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    
-    # 2. Mundur satu level ke root folder, lalu masuk ke folder assets
-    root_dir = os.path.dirname(current_dir)
-    
-    # 3. Rangkai path file secara absolut sesuai nama file di explorer Anda
-    logo1_path = os.path.join(root_dir, "assets", "logo_uin.png")
-    logo2_path = os.path.join(root_dir, "assets", "logo_mti.png")
-    
-    # --- KODE DEBUG SEMENTARA ---
-    assets_dir = os.path.join(root_dir, "assets")
-    if os.path.exists(assets_dir):
-        st.sidebar.info(f"Isi folder assets: {os.listdir(assets_dir)}")
-    else:
-        st.sidebar.error("Folder assets sama sekali tidak terdeteksi oleh server.")
-    # ----------------------------
-    
-    # Tampilkan ke dalam 2 kolom
     col_img1, col_img2 = st.sidebar.columns(2)
     
     with col_img1:
-        if os.path.exists(logo1_path):
-            st.image(logo1_path, use_container_width=True)
-        else:
-            st.error("Gagal load logo_uin.png")
+        try:
+            st.image("assets/logo_uin.png", use_container_width=True)
+        except Exception as e:
+            st.error(f"File tidak ditemukan: {e}")
             
     with col_img2:
-        if os.path.exists(logo2_path):
-            st.image(logo2_path, use_container_width=True)
-        else:
-            st.error("Gagal load logo_mti.png")
+        try:
+            st.image("assets/logo_mti.png", use_container_width=True)
+        except Exception as e:
+            st.error(f"File tidak ditemukan: {e}")
