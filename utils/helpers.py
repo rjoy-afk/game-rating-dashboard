@@ -1,22 +1,41 @@
 import streamlit as st
+import base64
+import os
 
 def render_sidebar():
     # ==========================================
-    # GAMBAR ATAS (TENGAH)
+    # 1. GAMBAR DI PALING ATAS SIDEBAR (CSS HACK)
     # ==========================================
-    # Membagi kolom 1:2:1 agar gambar berada tepat di tengah
-    col_space1, col_top_img, col_space2 = st.sidebar.columns([1, 2, 1])
-    with col_top_img:
-        try:
-            st.image("Assets/games.png", use_container_width=True)
-        except Exception:
-            pass
-            
-    # Memberi sedikit jarak antara gambar dan judul profil
-    st.sidebar.markdown("<br>", unsafe_allow_html=True)
+    # Path gambar (sesuaikan dengan games_transparent.png jika ada)
+    img_path = "Assets/games.png" 
     
+    if os.path.exists(img_path):
+        # Membaca file gambar dan mengubahnya ke Base64
+        with open(img_path, "rb") as f:
+            encoded_string = base64.b64encode(f.read()).decode()
+
+        # Menyuntikkan CSS untuk menaruh gambar di blok navigasi teratas
+        st.markdown(
+            f"""
+            <style>
+            [data-testid="stSidebarNav"]::before {{
+                content: "";
+                display: block;
+                background-image: url("data:image/png;base64,{encoded_string}");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                height: 120px; /* Anda bisa menyesuaikan tinggi gambar di sini */
+                margin-bottom: 20px;
+                margin-top: 10px;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
     # ==========================================
-    # PROFIL MAHASISWA
+    # 2. PROFIL MAHASISWA
     # ==========================================
     st.sidebar.markdown("### 🎓 Profil Mahasiswa")
     
@@ -41,7 +60,7 @@ def render_sidebar():
     st.sidebar.markdown(profil_html, unsafe_allow_html=True)
     
     # ==========================================
-    # LOGO BAWAH
+    # 3. LOGO BAWAH (UIN & MTI)
     # ==========================================
     col_img1, col_img2 = st.sidebar.columns(2)
     
