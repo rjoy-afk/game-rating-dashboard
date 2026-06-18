@@ -22,7 +22,7 @@ def render_sidebar():
     </div>
     """
     st.sidebar.markdown(profil_html, unsafe_allow_html=True)
-    st.sidebar.markdown("<br>" * 1, unsafe_allow_html=True)
+    #st.sidebar.markdown("<br>" * 1, unsafe_allow_html=True)
     
     # Menampilkan Logo
     col_img1, col_img2 = st.sidebar.columns(2)
